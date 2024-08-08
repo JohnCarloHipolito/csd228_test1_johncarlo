@@ -14,12 +14,12 @@ class ResultScreen extends StatelessWidget {
       appBar: AppBar(title: null),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Image.asset(
               isWin ? 'assets/images/win.png' : 'assets/images/lost.png',
               width: 300,
-              height: 300,
+              height: 200,
             ),
             ElevatedButton(
               onPressed: () {
