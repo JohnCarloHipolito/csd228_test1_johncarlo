@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'splash.dart';
-import 'home.dart';
+import 'word_guess/game_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,12 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.deepPurple,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
         ),
         useMaterial3: true,
       ),
       home: const SplashScreen(
-        nextPage: HomePage(),
+        nextPage: GameScreen(),
       ),
     );
   }
