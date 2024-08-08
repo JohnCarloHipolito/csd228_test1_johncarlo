@@ -11,16 +11,16 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Game Over')),
+      appBar: AppBar(title: null),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              isWin ? 'You WON!' : 'You LOST!',
-              style: TextStyle(fontSize: 32),
+            Image.asset(
+              isWin ? 'assets/images/win.png' : 'assets/images/lost.png',
+              width: 300,
+              height: 300,
             ),
-            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 onPlayAgain();
@@ -29,6 +29,15 @@ class ResultScreen extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => GameScreen()),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4267DF), // Background color
+                foregroundColor: Colors.white, // Text color
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                textStyle: TextStyle(fontSize: 20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               child: Text('Play Again'),
             ),
           ],

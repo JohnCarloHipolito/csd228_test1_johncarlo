@@ -91,7 +91,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Word Guess Game')),
+      appBar: AppBar(title: null),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -101,15 +101,27 @@ class _GameScreenState extends State<GameScreen> {
               children: _buildCurrentWordBoxes(),
             ),
             const SizedBox(height: 20),
-            Text('Hint: ${_game.currentHint}'),
+            Text(
+              'Hint: ${_game.currentHint}',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 20),
-            Text('Guessed Letters: ${_game.guessedLetters.join(', ')}'),
+            Text(
+              'Incorrect Letters: ${_game.guessedLetters.where((letter) => !_game.currentWord.contains(letter)).join(', ')}',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 _game.maxWrongGuesses,
-                (index) => Icon(
+                    (index) => Icon(
                   index < _game.wrongGuesses ? Icons.favorite_border : Icons.favorite,
                   color: index < _game.wrongGuesses ? Colors.black12 : Colors.red,
                 ),
@@ -129,10 +141,22 @@ class _GameScreenState extends State<GameScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
+            const SizedBox(height: 50),
+            ElevatedButton.icon(
               onPressed: _guessLetter,
-              child: const Text('Guess'),
+              icon: const Icon(Icons.play_arrow, size: 30),
+              label: const Text(
+                'Guess',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF4267DF),
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
             ),
           ],
         ),

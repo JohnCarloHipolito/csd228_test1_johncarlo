@@ -78,7 +78,7 @@ class _AnimatedLogoState extends State<AnimatedLogo> with SingleTickerProviderSt
 
   void _initializeAnimation() {
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 5000),
+      duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
     _animation = CurvedAnimation(
