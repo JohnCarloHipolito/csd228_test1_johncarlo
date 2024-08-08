@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'word_guess_game.dart';
 import 'result_screen.dart';
 
@@ -20,11 +21,23 @@ class _GameScreenState extends State<GameScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _focusNode.requestFocus();
     });
+
+    _controller.addListener(() {
+      final text = _controller.text.toUpperCase();
+      _controller.value = _controller.value.copyWith(
+        text: text,
+        selection: TextSelection(
+          baseOffset: text.length,
+          extentOffset: text.length,
+        ),
+        composing: TextRange.empty,
+      );
+    });
   }
 
   void _guessLetter() {
     setState(() {
-      _game.guessLetter(_controller.text.toUpperCase());
+      _game.guessLetter(_controller.text);
       _controller.clear();
       _focusNode.requestFocus();
       if (_game.isGameOver()) {
@@ -72,7 +85,7 @@ class _GameScreenState extends State<GameScreen> {
               style: const TextStyle(fontSize: 32),
             ),
             const SizedBox(height: 20),
-            Text(_game.currentHint),
+            Text('Hint: ${_game.currentHint}'),
             const SizedBox(height: 20),
             Text('Guessed Letters: ${_game.guessedLetters.join(', ')}'),
             const SizedBox(height: 20),
@@ -87,11 +100,18 @@ class _GameScreenState extends State<GameScreen> {
               ).reversed.toList(),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _controller,
-              focusNode: _focusNode,
-              decoration: const InputDecoration(labelText: 'Guess a letter'),
-              onSubmitted: (_) => _guessLetter(),
+            Container(
+              width: 50,
+              child: TextField(
+                controller: _controller,
+                focusNode: _focusNode,
+                textAlign: TextAlign.center,
+                onSubmitted: (_) => _guessLetter(),
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
+                  LengthLimitingTextInputFormatter(1),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
