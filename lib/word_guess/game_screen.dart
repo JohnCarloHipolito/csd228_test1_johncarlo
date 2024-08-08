@@ -35,6 +35,24 @@ class _GameScreenState extends State<GameScreen> {
     });
   }
 
+  List<Widget> _buildCurrentWordBoxes() {
+    return _game.currentWord.split('').map((letter) {
+      return Container(
+        width: 40,
+        height: 40,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Text(
+          _game.guessedLetters.contains(letter) ? letter : ' ',
+          style: const TextStyle(fontSize: 24),
+        ),
+      );
+    }).toList();
+  }
+
   void _guessLetter() {
     setState(() {
       _game.guessLetter(_controller.text);
@@ -78,11 +96,9 @@ class _GameScreenState extends State<GameScreen> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text(
-              _game.currentWord.split('').map((letter) {
-                return _game.guessedLetters.contains(letter) ? letter : '_';
-              }).join(' '),
-              style: const TextStyle(fontSize: 32),
+            Wrap(
+              spacing: 8.0,
+              children: _buildCurrentWordBoxes(),
             ),
             const SizedBox(height: 20),
             Text('Hint: ${_game.currentHint}'),
@@ -93,7 +109,7 @@ class _GameScreenState extends State<GameScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 _game.maxWrongGuesses,
-                    (index) => Icon(
+                (index) => Icon(
                   index < _game.wrongGuesses ? Icons.favorite_border : Icons.favorite,
                   color: index < _game.wrongGuesses ? Colors.black12 : Colors.red,
                 ),

@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Background color
+                backgroundColor: const Color(0xFF4267DF), // Background color
                 foregroundColor: Colors.white, // Text color
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 shape: RoundedRectangleBorder(
@@ -78,7 +78,7 @@ class _AnimatedLogoState extends State<AnimatedLogo> with SingleTickerProviderSt
 
   void _initializeAnimation() {
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 2000),
+      duration: const Duration(milliseconds: 5000),
       vsync: this,
     );
     _animation = CurvedAnimation(
